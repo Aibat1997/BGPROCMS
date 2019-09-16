@@ -7,4 +7,5 @@
 4)php artisan key:generate
 5)php artisan migrate
 ```
+#How to work with Excel(https://docs.laravel-excel.com/3.1/getting-started/)
 #Finish))That's all!!
