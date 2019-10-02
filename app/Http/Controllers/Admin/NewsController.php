@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Subscription;
 use App\Models\NewsPosition;
 use App\Mail\NewsSubscription;
+use App\Http\Helpers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
@@ -60,16 +61,16 @@ class NewsController extends Controller
         ]);
 
         if ($request->hasFile('news_image_ru')) {
-            $result_ru = $this->storeImg('news_image_ru', $request);
+            $result_ru = Helpers::storeImg('news_image_ru', 'image', $request);
         }
         if ($request->hasFile('news_image_kz')) {
-            $result_kz = $this->storeImg('news_image_kz', $request);
+            $result_kz = Helpers::storeImg('news_image_kz', 'image', $request);
         }
         else {
             $result_kz = $result_ru;
         }
         if ($request->hasFile('news_image_en')) {
-            $result_en = $this->storeImg('news_image_en', $request);
+            $result_en = Helpers::storeImg('news_image_en', 'image', $request);
         }
         else {
             $result_en = $result_ru;
@@ -172,17 +173,17 @@ class NewsController extends Controller
         $news = News::find($id);
 
         if ($request->hasFile('news_image_ru')) {
-            $result_ru = $this->storeImg('news_image_ru', $request);
+            $result_ru = Helpers::storeImg('news_image_ru', 'image', $request);
         }else {
             $result_ru = $news->news_image_ru;
         }
         if ($request->hasFile('news_image_kz')) {
-            $result_kz = $this->storeImg('news_image_kz', $request);
+            $result_kz = Helpers::storeImg('news_image_kz', 'image', $request);
         }else {
             $result_kz = $news->news_image_kz;
         }
         if ($request->hasFile('news_image_en')) {
-            $result_en = $this->storeImg('news_image_en', $request);
+            $result_en = Helpers::storeImg('news_image_en', 'image', $request);
         }else {
             $result_en = $news->news_image_en;
         }
@@ -237,23 +238,5 @@ class NewsController extends Controller
     {
         $news = News::find($id);
         $news->delete(); 
-    }
-
-    public function storeImg($name, $request)
-    {
-        $image = $request->file($name);
-        $image_name = $image->getClientOriginalName();
-        $extension = $image->getClientOriginalExtension();
-        $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-        $image_name = $destinationPath . '/' . $image_name;
-
-        if (Storage::disk('image')->exists($image_name)) {
-            $now = \DateTime::createFromFormat('U.u', microtime(true));
-            $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-        }
-
-        Storage::disk('image')->put($image_name, File::get($image));
-        $result = '/media' .$image_name;
-        return $result;
     }
 }

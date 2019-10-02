@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Http\Helpers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -44,22 +45,10 @@ class UsersController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:255|unique:users',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        ]); 
 
         if ($request->hasFile('avatar')) {
-            $image = $request->file('avatar');
-            $image_name = $image->getClientOriginalName();
-            $extension = $image->getClientOriginalExtension();
-            $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-            $image_name = $destinationPath . '/' . $image_name;
-
-            if (Storage::disk('avatar')->exists($image_name)) {
-                $now = \DateTime::createFromFormat('U.u', microtime(true));
-                $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-            }
-
-            Storage::disk('avatar')->put($image_name, File::get($image));
-            $result = '/media_avatar' .$image_name;
+            $result = Helpers::storeImg('avatar', 'avatar', $request);
         }else {
             $result = '/img/default-user.jpg';
         }

@@ -19,8 +19,7 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/datatables.min.css" />
-    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.5/css/froala_editor.pkgd.min.css' rel='stylesheet'
-        type='text/css' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">        
 
     @yield('css')
 
@@ -60,8 +59,7 @@
     <script src="/plugins/c3-master/c3.min.js"></script>
     <script src="/js/dashboard1.js"></script>
     <script src="/js/datatables.min.js"></script>
-    <script type='text/javascript'
-        src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.5/js/froala_editor.pkgd.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>    
     <script src="/js/admin.js"></script>
     <script>
         jQuery.each(["put", "delete"], function (i, method) {

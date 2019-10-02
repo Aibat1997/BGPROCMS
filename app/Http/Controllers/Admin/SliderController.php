@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
+use App\Http\Helpers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -53,15 +54,15 @@ class SliderController extends Controller
         ]);
 
         if ($request->hasFile('slider_image_ru')) {
-            $result_ru = $this->storeImg('slider_image_ru', $request);
+            $result_ru = Helpers::storeImg('slider_image_ru', 'image', $request); 
         }
         if ($request->hasFile('slider_image_kz')) {
-            $result_kz = $this->storeImg('slider_image_kz', $request);
+            $result_kz = Helpers::storeImg('slider_image_kz', 'image', $request);
         }else {
             $result_kz = $result_ru;
         }
         if ($request->hasFile('slider_image_en')) {
-            $result_en = $this->storeImg('slider_image_en', $request);
+            $result_en = Helpers::storeImg('slider_image_en', 'image', $request);
         }else {
             $result_en = $result_ru;
         }
@@ -123,17 +124,17 @@ class SliderController extends Controller
         $slider = Slider::find($id);
 
         if ($request->hasFile('slider_image_ru')) {
-            $result_ru = $this->storeImg('slider_image_ru', $request);
+            $result_ru = Helpers::storeImg('slider_image_ru', 'image', $request);
         }else {
             $result_ru = $slider->slider_image_ru;
         }
         if ($request->hasFile('slider_image_kz')) {
-            $result_kz = $this->storeImg('slider_image_kz', $request);
+            $result_kz = Helpers::storeImg('slider_image_kz', 'image', $request);
         }else {
             $result_kz = $slider->slider_image_kz;
         }
         if ($request->hasFile('slider_image_en')) {
-            $result_en = $this->storeImg('slider_image_en', $request);
+            $result_en = Helpers::storeImg('slider_image_en', 'image', $request);
         }else {
             $result_en = $slider->slider_image_en;
         }
@@ -165,23 +166,5 @@ class SliderController extends Controller
     {
         $slider = Slider::find($id);
         $slider->delete(); 
-    }
-
-    public function storeImg($name, $request)
-    {
-        $image = $request->file($name);
-        $image_name = $image->getClientOriginalName();
-        $extension = $image->getClientOriginalExtension();
-        $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-        $image_name = $destinationPath . '/' . $image_name;
-
-        if (Storage::disk('image')->exists($image_name)) {
-            $now = \DateTime::createFromFormat('U.u', microtime(true));
-            $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-        }
-
-        Storage::disk('image')->put($image_name, File::get($image));
-        $result = '/media' .$image_name;
-        return $result;
     }
 }

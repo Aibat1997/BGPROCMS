@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
+use App\Http\Helpers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -45,19 +46,7 @@ class ArchiveController extends Controller
         ]);
 
         if ($request->hasFile('archive_image')) {
-            $image = $request->file('archive_image');
-            $image_name = $image->getClientOriginalName();
-            $extension = $image->getClientOriginalExtension();
-            $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-            $image_name = $destinationPath . '/' . $image_name;
-
-            if (Storage::disk('image')->exists($image_name)) {
-                $now = \DateTime::createFromFormat('U.u', microtime(true));
-                $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-            }
-
-            Storage::disk('image')->put($image_name, File::get($image));
-            $result = '/media' .$image_name;
+            $result = Helpers::storeImg('archive_image', 'image', $request); 
         }
 
         if ($request->hasFile('archive_file')) {
@@ -130,19 +119,7 @@ class ArchiveController extends Controller
         $archive = Archive::find($id);
 
         if ($request->hasFile('archive_image')) {
-            $image = $request->file('archive_image');
-            $image_name = $image->getClientOriginalName();
-            $extension = $image->getClientOriginalExtension();
-            $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-            $image_name = $destinationPath . '/' . $image_name;
-
-            if (Storage::disk('image')->exists($image_name)) {
-                $now = \DateTime::createFromFormat('U.u', microtime(true));
-                $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-            }
-
-            Storage::disk('image')->put($image_name, File::get($image));
-            $result = '/media' .$image_name;
+            $result = Helpers::storeImg('archive_image', 'image', $request);
         }else {
             $result = $archive->archive_image;
         }

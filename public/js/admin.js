@@ -3,7 +3,10 @@ $(document).ready(function () {
     $('#not-showed').DataTable();
 });
 
-var editor = new FroalaEditor('#froala');  
+$('#froala').summernote({
+    tabsize: 2,
+    height: 250
+  }); 
 
 $(".show").click(function () {
     $(this).parent().addClass('active-top-show');

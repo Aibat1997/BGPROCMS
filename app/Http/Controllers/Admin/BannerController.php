@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Http\Helpers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -51,19 +52,7 @@ class BannerController extends Controller
         ]);
 
         if ($request->hasFile('banner_image')) {
-            $image = $request->file('banner_image');
-            $image_name = $image->getClientOriginalName();
-            $extension = $image->getClientOriginalExtension();
-            $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-            $image_name = $destinationPath . '/' . $image_name;
-
-            if (Storage::disk('image')->exists($image_name)) {
-                $now = \DateTime::createFromFormat('U.u', microtime(true));
-                $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-            }
-
-            Storage::disk('image')->put($image_name, File::get($image));
-            $result = '/media' .$image_name;
+            $result = Helpers::storeImg('banner_image', 'image', $request);            
         }
 
         $banner = new Banner();
@@ -123,19 +112,7 @@ class BannerController extends Controller
         $banner = Banner::find($id);
 
         if ($request->hasFile('banner_image')) {
-            $image = $request->file('banner_image');
-            $image_name = $image->getClientOriginalName();
-            $extension = $image->getClientOriginalExtension();
-            $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-            $image_name = $destinationPath . '/' . $image_name;
-
-            if (Storage::disk('image')->exists($image_name)) {
-                $now = \DateTime::createFromFormat('U.u', microtime(true));
-                $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-            }
-
-            Storage::disk('image')->put($image_name, File::get($image));
-            $result = '/media' .$image_name;
+            $result = Helpers::storeImg('banner_image', 'image', $request);  
         }else {
             $result = $banner->banner_image;
         }
