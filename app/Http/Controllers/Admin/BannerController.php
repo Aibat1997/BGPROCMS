@@ -19,12 +19,10 @@ class BannerController extends Controller
     {
         $banner = Banner::where('is_show',1)
                     ->leftJoin('rubrics','rubrics.rubric_id','=','banners.banner_rubric_id')
-                    ->leftJoin('positions','positions.position_id','=','banners.banner_position_id')
                     ->get();
 
         $banner_not = Banner::where('is_show',0)
                     ->leftJoin('rubrics','rubrics.rubric_id','=','banners.banner_rubric_id')
-                    ->leftJoin('positions','positions.position_id','=','banners.banner_position_id')
                     ->get();            
                     
         return view('admin.banner.banner', compact('banner','banner_not'));
@@ -73,9 +71,15 @@ class BannerController extends Controller
         $banner->banner_name = $request->banner_name;
         $banner->banner_url = $request->banner_url;
         $banner->banner_rubric_id = $request->banner_rubric_id;
-        $banner->banner_position_id = $request->banner_position_id;
         $banner->is_show = $request->is_show;
         $banner->save();
+
+        $list = array();
+        foreach ($request->news_position as $value) { 
+            array_push($list, $value);     
+        }
+
+        $banner->positions()->sync($list);
 
         return redirect('/admin/banner');
     }
@@ -142,9 +146,15 @@ class BannerController extends Controller
                     'banner_name' => $request->banner_name,
                     'banner_url' => $request->banner_url,
                     'banner_rubric_id' => $request->banner_rubric_id,
-                    'banner_position_id' => $request->banner_position_id,
                     'is_show' => $request->is_show
                     ]);
+
+        $list = array();
+        foreach ($request->news_position as $value) { 
+            array_push($list, $value);     
+        }
+
+        $banner->positions()->sync($list);
 
         return redirect("/admin/banner"); 
     }

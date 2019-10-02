@@ -8,4 +8,9 @@ class News extends Model
 {
     protected $primaryKey = 'news_id';
     protected $guarded = [];
+    
+    public function positions()
+    {
+        return $this->belongsToMany('App\Models\Position', 'news_positions', 'np_news_id', 'np_position_id');
+    }
 }

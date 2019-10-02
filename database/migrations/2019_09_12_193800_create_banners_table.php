@@ -19,11 +19,9 @@ class CreateBannersTable extends Migration
             $table->string('banner_name')->nullable();
             $table->string('banner_url')->nullable();
             $table->unsignedBigInteger('banner_rubric_id');
-            $table->unsignedBigInteger('banner_position_id');
             $table->boolean('is_show')->default(1);
             $table->timestamps();
 
-            $table->foreign('banner_position_id')->references('position_id')->on('positions')->onDelete('cascade');
             $table->foreign('banner_rubric_id')->references('rubric_id')->on('rubrics')->onDelete('cascade');
         });
     }

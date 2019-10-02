@@ -66,10 +66,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Позиция</label>
-                                    <select class="form-control" name="banner_position_id">
-                                        @include('admin.layouts.select-position')
-                                    </select>
+                                    <label>Позиция</label><br>
+                                    @include('admin.layouts.position')
                                 </div>
                             </div>
                         </div>

@@ -45,7 +45,6 @@
                                     <th>Фото</th>
                                     <th>Название</th>
                                     <th>Рубрика</th>
-                                    <th>Позиция</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -58,7 +57,6 @@
                                     <td><img src="{{ $value->banner_image }}" alt=""></td>
                                     <td>{{ $value->banner_name }}</td>
                                     <td>{{ $value->rubric_name_ru }}</td>
-                                    <td>{{ $value->position_name_ru }}</td>
                                     <td>
                                         <a href="javascript:void(0)"
                                             onclick="remove(this,'{{ $value->banner_id }}','banner')">
@@ -80,7 +78,6 @@
                                     <th>Фото</th>
                                     <th>Название</th>
                                     <th>Рубрика</th>
-                                    <th>Позиция</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -93,7 +90,6 @@
                                     <td><img src="{{ $value->banner_image }}" alt=""></td>
                                     <td>{{ $value->banner_name }}</td>
                                     <td>{{ $value->rubric_name_ru }}</td>
-                                    <td>{{ $value->position_name_ru }}</td>
                                     <td>
                                         <a href="javascript:void(0)"
                                             onclick="remove(this,'{{ $value->banner_id }}','banner')">

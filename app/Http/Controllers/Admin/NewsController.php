@@ -113,12 +113,12 @@ class NewsController extends Controller
         $news->is_show = $request->is_show;
         $news->save();
 
-        foreach ($request->news_position as $value) {
-            $news_position = new NewsPosition();
-            $news_position->np_news_id = $news->news_id;
-            $news_position->np_position_id = $value;
-            $news_position->save();
+        $list = array();
+        foreach ($request->news_position as $value) { 
+            array_push($list, $value);     
         }
+
+        $news->positions()->sync($list);
 
         $subscription = Subscription::where('subscription_status',1)->get();
         foreach ($subscription as $value) {
@@ -217,18 +217,12 @@ class NewsController extends Controller
                     'is_show' => $request->is_show
                     ]);
 
-        foreach ($request->news_position as $value) {
-            $news_pos = NewsPosition::where('np_news_id', $id)
-            ->where('np_position_id', $value)
-            ->first();
-
-            if (empty($news_pos)) {
-                $news_position = new NewsPosition();
-                $news_position->np_news_id = $id;
-                $news_position->np_position_id = $value;
-                $news_position->save();                
-            }            
+        $list = array();
+        foreach ($request->news_position as $value) { 
+            array_push($list, $value);     
         }
+
+        $news->positions()->sync($list);
 
         return redirect("/admin/news");
     }
