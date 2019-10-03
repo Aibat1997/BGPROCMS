@@ -85,7 +85,7 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label>Сабменю</label><br>
+                                    <label>Подменю</label><br>
                                     <input type="radio" class="form-check-input" name="is_sub" value="1"
                                         id="is_sub_yes" {{ (!empty($menu) && $menu->is_sub == 1) ? "checked" : "" }}>
                                     <label class="form-check-label" for="is_sub_yes">
@@ -103,7 +103,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Страницы</label>
+                                    <label>К странице</label>
                                     <select name="menu_page_id" class="form-control">
                                         @include('admin.layouts.page')
                                     </select>

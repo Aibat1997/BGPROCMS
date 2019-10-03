@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea id="froala" name="news_desc_ru">{{ !empty($news) ? $news->news_desc_ru : old('news_desc_ru') }}</textarea>
+                                            <textarea class="summernote" name="news_desc_ru">{{ !empty($news) ? $news->news_desc_ru : old('news_desc_ru') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Meta SEO description </label>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea id="froala" name="news_desc_kz">{{ !empty($news) ? $news->news_desc_kz : old('news_desc_kz') }}</textarea>
+                                            <textarea class="summernote" name="news_desc_kz">{{ !empty($news) ? $news->news_desc_kz : old('news_desc_kz') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Meta SEO description </label>
@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea id="froala" name="news_desc_en">{{ !empty($news) ? $news->news_desc_en : old('news_desc_en') }}</textarea>
+                                            <textarea class="summernote" name="news_desc_en">{{ !empty($news) ? $news->news_desc_en : old('news_desc_en') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Meta SEO description </label>

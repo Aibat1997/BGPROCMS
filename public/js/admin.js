@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#not-showed').DataTable();
 });
 
-$('#froala').summernote({
+$('.summernote').summernote({
     tabsize: 2,
     height: 250
   }); 
