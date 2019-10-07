@@ -69,11 +69,11 @@
                                         <div class="form-group">
                                             <label>Краткое описание</label>
                                             <textarea name="news_short_desc_ru"
-                                                class="ckeditor form-control">{{ !empty($news) ? $news->news_short_desc_ru : old('news_short_desc_ru') }}</textarea>
+                                                class="form-control">{{ !empty($news) ? $news->news_short_desc_ru : old('news_short_desc_ru') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea class="summernote" name="news_desc_ru">{{ !empty($news) ? $news->news_desc_ru : old('news_desc_ru') }}</textarea>
+                                            <textarea id="editor" name="news_desc_ru">{{ !empty($news) ? $news->news_desc_ru : old('news_desc_ru') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Meta SEO description </label>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea class="summernote" name="news_desc_kz">{{ !empty($news) ? $news->news_desc_kz : old('news_desc_kz') }}</textarea>
+                                            <textarea id="editor1" name="news_desc_kz">{{ !empty($news) ? $news->news_desc_kz : old('news_desc_kz') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Meta SEO description </label>
@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea class="summernote" name="news_desc_en">{{ !empty($news) ? $news->news_desc_en : old('news_desc_en') }}</textarea>
+                                            <textarea id="editor2" name="news_desc_en">{{ !empty($news) ? $news->news_desc_en : old('news_desc_en') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Meta SEO description </label>

@@ -63,19 +63,19 @@
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                         <div class="form-group">
                                             <label>Текст</label>
-                                            <textarea name="slider_text_ru" class="ckeditor form-control">{{ !empty($slider) ? $slider->slider_text_ru : old('slider_text_ru') }}</textarea>
+                                            <textarea name="slider_text_ru" class="form-control">{{ !empty($slider) ? $slider->slider_text_ru : old('slider_text_ru') }}</textarea>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
                                             <label>Текст</label>
-                                            <textarea name="slider_text_kz" class="ckeditor form-control">{{ !empty($slider) ? $slider->slider_text_kz : old('slider_text_kz') }}</textarea>
+                                            <textarea name="slider_text_kz" class="form-control">{{ !empty($slider) ? $slider->slider_text_kz : old('slider_text_kz') }}</textarea>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                         <div class="form-group">
                                             <label>Текст</label>
-                                            <textarea name="slider_text_en" class="ckeditor form-control">{{ !empty($slider) ? $slider->slider_text_en : old('slider_text_en') }}</textarea>
+                                            <textarea name="slider_text_en" class="form-control">{{ !empty($slider) ? $slider->slider_text_en : old('slider_text_en') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

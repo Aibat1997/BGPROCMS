@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea class="summernote" name="page_content_ru">{{ !empty($page) ? $page->page_content_ru : old('page_content_ru') }}</textarea>
+                                            <textarea id="editor" name="page_content_ru">{{ !empty($page) ? $page->page_content_ru : old('page_content_ru') }}</textarea>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea class="summernote" name="page_content_kz">{{ !empty($page) ? $page->page_content_kz : old('page_content_kz') }}</textarea>
+                                            <textarea id="editor1" name="page_content_kz">{{ !empty($page) ? $page->page_content_kz : old('page_content_kz') }}</textarea>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
-                                            <textarea class="summernote" name="page_content_en">{{ !empty($page) ? $page->page_content_en : old('page_content_en') }}</textarea>
+                                            <textarea id="editor2" name="page_content_en">{{ !empty($page) ? $page->page_content_en : old('page_content_en') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

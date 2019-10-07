@@ -79,6 +79,11 @@ return [
             'root'   => storage_path('app/document'),
         ],
 
+        'public_uploads' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/uploads',
+        ],
+
     ],
 
 ];

@@ -85,7 +85,7 @@ class NewsController extends Controller
         //Ru
         $news->news_name_ru = $request->news_name_ru;
         $news->news_short_desc_ru = $request->news_short_desc_ru;
-        $news->news_desc_ru = Helpers::storeContentImage('news_desc_ru', $request);
+        $news->news_desc_ru = $request->news_desc_ru;
         $news->news_meta_description_ru = $request->news_meta_description_ru;
         $news->news_meta_keywords_ru = $request->news_meta_keywords_ru;
         $news->tag_ru = $request->tag_ru;
@@ -93,7 +93,7 @@ class NewsController extends Controller
         //Kz
         $news->news_name_kz = (!empty($request->news_name_kz)) ? $request->news_name_kz : $request->news_name_ru;
         $news->news_short_desc_kz = (!empty($request->news_short_desc_kz)) ? $request->news_short_desc_kz : $request->news_short_desc_ru; 
-        $news->news_desc_kz = (!empty($request->news_desc_kz)) ? Helpers::storeContentImage('news_desc_kz', $request) : Helpers::storeContentImage('news_desc_ru', $request);
+        $news->news_desc_kz = (!empty($request->news_desc_kz)) ? $request->news_desc_kz : $request->news_desc_ru;
         $news->news_meta_description_kz = (!empty($request->news_meta_description_kz)) ? $request->news_meta_description_kz : $request->news_meta_description_ru;
         $news->news_meta_keywords_kz = (!empty($request->news_meta_keywords_kz)) ? $request->news_meta_keywords_kz : $request->news_meta_keywords_ru;
         $news->tag_kz = (!empty($request->tag_kz)) ? $request->tag_kz : $request->tag_ru;
@@ -101,7 +101,7 @@ class NewsController extends Controller
         //En
         $news->news_name_en = (!empty($request->news_name_en)) ? $request->news_name_en : $request->news_name_ru;
         $news->news_short_desc_en = (!empty($request->news_short_desc_en)) ? $request->news_short_desc_en : $request->news_short_desc_ru; 
-        $news->news_desc_en = (!empty($request->news_desc_en)) ? Helpers::storeContentImage('news_desc_en', $request) : Helpers::storeContentImage('news_desc_ru', $request);
+        $news->news_desc_en = (!empty($request->news_desc_en)) ? $request->news_desc_en : $request->news_desc_ru;
         $news->news_meta_description_en = (!empty($request->news_meta_description_en)) ? $request->news_meta_description_en : $request->news_meta_description_ru;
         $news->news_meta_keywords_en = (!empty($request->news_meta_keywords_en)) ? $request->news_meta_keywords_en : $request->news_meta_keywords_ru;
         $news->tag_en = (!empty($request->tag_en)) ? $request->tag_en : $request->tag_ru;
@@ -196,9 +196,9 @@ class NewsController extends Controller
                     'news_short_desc_ru' => $request->news_short_desc_ru,
                     'news_short_desc_kz' => $request->news_short_desc_kz,
                     'news_short_desc_en' => $request->news_short_desc_en,
-                    'news_desc_ru' => Helpers::storeContentImage('news_desc_ru', $request),
-                    'news_desc_kz' => Helpers::storeContentImage('news_desc_kz', $request),
-                    'news_desc_en' => Helpers::storeContentImage('news_desc_en', $request),
+                    'news_desc_ru' => $request->news_desc_ru,
+                    'news_desc_kz' => $request->news_desc_kz,
+                    'news_desc_en' => $request->news_desc_en,
                     'news_image_ru' => $result_ru,
                     'news_image_kz' => $result_kz,
                     'news_image_en' => $result_en,

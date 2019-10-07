@@ -629,33 +629,12 @@ class Helpers {
 
         if (Storage::disk($disk_name)->exists($image_name)) {
             $now = \DateTime::createFromFormat('U.u', microtime(true));
-            $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
+            $image_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
         }
 
         Storage::disk($disk_name)->put($image_name, File::get($image));
         $result = '/media' .$image_name;
         return $result;
-    }
-
-    public static function storeContentImage($name, $request)
-    {
-        $detail=$request->input($name);
-        $dom = new \DomDocument();
-        $dom->loadHtml('<?xml encoding="utf-8" ?>' . $detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);    
-        $images = $dom->getElementsByTagName('img');
-        foreach($images as $k => $img){
-            $data = $img->getAttribute('src');
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $data = base64_decode($data);
-            $image_name= "/upload/" . time().$k.'.png';
-            $path = public_path() . $image_name;
-            file_put_contents($path, $data);
-            $img->removeAttribute('src');
-            $img->setAttribute('src', $image_name);
-        }
-        $detail = $dom->saveHTML();
-        return $detail;
     }
 
 } 

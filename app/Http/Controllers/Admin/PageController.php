@@ -45,13 +45,13 @@ class PageController extends Controller
         $page = new Page();
         //Ru
         $page->page_name_ru = $request->page_name_ru;
-        $page->page_content_ru = Helpers::storeContentImage('page_content_ru', $request);
+        $page->page_content_ru = $request->page_content_ru;
         //Kz
         $page->page_name_kz = (!empty($request->page_name_kz)) ? $request->page_name_kz : $request->page_name_ru;
-        $page->page_content_kz = (!empty($request->page_content_kz)) ? Helpers::storeContentImage('page_content_kz', $request) : Helpers::storeContentImage('page_content_ru', $request);
+        $page->page_content_kz = (!empty($request->page_content_kz)) ? $request->page_content_kz : $request->page_content_ru;
         //En
         $page->page_name_en = (!empty($request->page_name_en)) ? $request->page_name_en : $request->page_name_ru;
-        $page->page_content_en = (!empty($request->page_content_en)) ? Helpers::storeContentImage('page_content_en', $request) : Helpers::storeContentImage('page_content_ru', $request);
+        $page->page_content_en = (!empty($request->page_content_en)) ? $request->page_content_en : $request->page_content_ru;
 
         $page->is_show = $request->is_show;
         $page->save();
@@ -97,9 +97,9 @@ class PageController extends Controller
             'page_name_ru' => $request->page_name_ru,
             'page_name_kz' => $request->page_name_kz,
             'page_name_en' => $request->page_name_en,
-            'page_content_ru' => Helpers::storeContentImage('page_content_ru', $request),
-            'page_content_kz' => Helpers::storeContentImage('page_content_kz', $request),
-            'page_content_en' => Helpers::storeContentImage('page_content_en', $request),
+            'page_content_ru' => $request->page_content_ru,
+            'page_content_kz' => $request->page_content_kz,
+            'page_content_en' => $request->page_content_en,
             'is_show' => $request->is_show
         ]);
 

@@ -3,11 +3,6 @@ $(document).ready(function () {
     $('#not-showed').DataTable();
 });
 
-$('.summernote').summernote({
-    tabsize: 2,
-    height: 250
-  }); 
-
 $(".show").click(function () {
     $(this).parent().addClass('active-top-show');
     $(".not-show").parent().removeClass('active-top-show');
