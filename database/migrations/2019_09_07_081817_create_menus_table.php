@@ -22,6 +22,7 @@ class CreateMenusTable extends Migration
             $table->boolean('is_show_main')->default(1);
             $table->boolean('is_show')->default(1);
             $table->boolean('is_sub')->default(0);
+            $table->unsignedInteger('sort_num');
             $table->unsignedBigInteger('main_menu_id')->nullable();
             $table->unsignedBigInteger('menu_page_id')->nullable();
             $table->timestamps();

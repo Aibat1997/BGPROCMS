@@ -47,6 +47,7 @@ class MenuController extends Controller
         $menu->is_show_main = $request->is_show_main;  
         $menu->is_show = $request->is_show;   
         $menu->is_sub = $request->is_sub;
+        $menu->sort_num = $request->sort_num;
         $menu->main_menu_id = ($request->is_sub == 1) ? $request->main_menu_id : null; 
         $menu->menu_page_id = (is_numeric($request->menu_page_id)) ? $request->menu_page_id : null; 
         $menu->save();
@@ -95,6 +96,7 @@ class MenuController extends Controller
                     'is_show_main' => $request->is_show_main,
                     'is_show' => $request->is_show,
                     'is_sub' => $request->is_sub,
+                    'sort_num' => $request->sort_num,
                     'main_menu_id' => ($request->is_sub == 1) ? $request->main_menu_id : null, 
                     'menu_page_id' => (is_numeric($request->menu_page_id)) ? $request->menu_page_id : null
                     ]);

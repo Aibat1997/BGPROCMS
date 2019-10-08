@@ -47,6 +47,6 @@ class MediaController extends Controller
 
         Storage::disk('public_uploads')->put($image_name, File::get($image));
         
-        return response()->json(['filename'=> $image_name,'uploaded'=> 1,'url' => 'http://127.0.0.1:8000/media_content'.$image_name]);
+        return response()->json(['filename'=> $image_name,'uploaded'=> 1,'url' => $request->root().'/media_content'.$image_name]);
     }
 }

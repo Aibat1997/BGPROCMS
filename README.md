@@ -8,6 +8,7 @@
 3)clone .env.example as .env
 4)php artisan key:generate
 5)php artisan migrate
+6)change in .env file APP_URL=your_site_url(important!!!)
 ```
 
 ## Excel

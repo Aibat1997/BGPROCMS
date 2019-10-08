@@ -41,15 +41,18 @@ var initSample = ( function() {
 		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
 		if ( wysiwygareaAvailable ) {
 			CKEDITOR.replace( 'editor', {
-				filebrowserBrowseUrl: '/public/uploads',
+				filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+				filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
 				filebrowserUploadUrl: '/content_image'
 			});
 			CKEDITOR.replace( 'editor1', {
-				filebrowserBrowseUrl: '/public/uploads',
+				filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+				filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
 				filebrowserUploadUrl: '/content_image'
 			});
 			CKEDITOR.replace( 'editor2', {
-				filebrowserBrowseUrl: '/public/uploads',
+				filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+				filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
 				filebrowserUploadUrl: '/content_image'
 			});
 		} else {

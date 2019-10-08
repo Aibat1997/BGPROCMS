@@ -85,6 +85,10 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
+                                    <label>Сортировка</label>
+                                    <input type="number" class="form-control" name="sort_num" value="{{ !empty($menu) ? $menu->sort_num : old('sort_num') }}" />
+                                </div>
+                                <div class="form-group">
                                     <label>Подменю</label><br>
                                     <input type="radio" class="form-check-input" name="is_sub" value="1"
                                         id="is_sub_yes" {{ (!empty($menu) && $menu->is_sub == 1) ? "checked" : "" }}>
