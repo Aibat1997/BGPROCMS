@@ -35,6 +35,34 @@
                 <li> 
                     <a class="waves-effect waves-dark" href="/admin/users" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Пользователи</span></a>
                 </li>
+                <li class="nav-item dropdown">
+                    @if (\Request::session()->get('lang') == 'ru')
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-ru"> </span>Русский</a>
+                    @elseif(\Request::session()->get('lang') == 'kz')
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-kz"> </span>Казахсикй</a>
+                    @else
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span>Английский</a>
+                    @endif
+                    <div class="dropdown-menu" aria-labelledby="dropdown09">
+                        <a class="dropdown-item" href="/lang/ru"><span class="flag-icon flag-icon-ru"> </span>Русский</a>
+                        <a class="dropdown-item" href="/lang/kz"><span class="flag-icon flag-icon-kz"> </span>Казахсикй</a>
+                        <a class="dropdown-item" href="/lang/en"><span class="flag-icon flag-icon-us"> </span>Английский</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    @if (\Request::session()->get('country') == 'ru')
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-ru"> </span></a>
+                    @elseif(\Request::session()->get('country') == 'kz')
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-kz"> </span></a>
+                    @else
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span></a>
+                    @endif
+                    <div class="dropdown-menu" aria-labelledby="dropdown09">
+                        <a class="dropdown-item" href="/country/ru"><span class="flag-icon flag-icon-ru"> </span></a>
+                        <a class="dropdown-item" href="/country/kz"><span class="flag-icon flag-icon-kz"> </span></a>
+                        <a class="dropdown-item" href="/country/en"><span class="flag-icon flag-icon-us"> </span></a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </div>
