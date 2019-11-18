@@ -633,7 +633,13 @@ class Helpers {
         }
 
         Storage::disk($disk_name)->put($image_name, File::get($image));
-        $result = '/media' .$image_name;
+
+        if ($disk_name == 'avatar') {
+            $result = '/media_avatar' .$image_name;
+        }else{
+            $result = '/media' .$image_name;
+        }
+
         return $result;
     }
 
