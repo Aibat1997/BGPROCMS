@@ -1,6 +1,16 @@
 $(document).ready(function () {
-    $('#showed').DataTable();
-    $('#not-showed').DataTable();
+    $('#showed').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+    $('#not-showed').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel', 'pdf', 'print'
+        ]
+    });
 });
 
 $(".show").click(function () {
