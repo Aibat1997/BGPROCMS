@@ -50,24 +50,7 @@ class ArchiveController extends Controller
         }
 
         if ($request->hasFile('archive_file')) {
-            $cover = $request->file('archive_file');
-            $resultall = "";
-            foreach ($cover as $coverone) {
-                $file_name = $coverone->getClientOriginalName();
-                $extension = $coverone->getClientOriginalExtension();
-
-                $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-
-                $file_name = $destinationPath . '/' . $file_name;
-
-                if (Storage::disk('doc')->exists($file_name)) {
-                    $now = \DateTime::createFromFormat('U.u', microtime(true));
-                    $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-                }
-
-                Storage::disk('doc')->put($file_name, File::get($coverone));
-                $resultall .= '\'/media_doc' . $file_name.'\',';
-            }
+            $resultall = Helpers::storeFile('archive_file', 'doc', $request);   
         }
 
         $archive = new Archive();
@@ -125,24 +108,7 @@ class ArchiveController extends Controller
         }
 
         if ($request->hasFile('archive_file')) {
-            $cover = $request->file('archive_file');
-            $resultall = "";
-            foreach ($cover as $coverone) {
-                $file_name = $coverone->getClientOriginalName();
-                $extension = $coverone->getClientOriginalExtension();
-
-                $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
-
-                $file_name = $destinationPath . '/' . $file_name;
-
-                if (Storage::disk('doc')->exists($file_name)) {
-                    $now = \DateTime::createFromFormat('U.u', microtime(true));
-                    $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
-                }
-
-                Storage::disk('doc')->put($file_name, File::get($coverone));
-                $resultall .= '\'/media_doc' . $file_name.'\',';
-            }
+            $resultall = Helpers::storeFile('archive_file', 'doc', $request);
         }else {
             $resultall = $archive->archive_file;
         }

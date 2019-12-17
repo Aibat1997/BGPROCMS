@@ -20,10 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('user_name_en')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->date('date_of_birth');
+            $table->date('date_of_birth')->nullable();
             $table->string('avatar')->default('/img/default-user.jpg');
             $table->unsignedBigInteger('user_role_id');
-            $table->boolean('male');
+            $table->boolean('male')->nullable();
             $table->boolean('is_ban')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

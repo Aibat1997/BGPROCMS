@@ -113,4 +113,29 @@ class Helpers {
         return $result;
     }
 
+    public static function storeFile($name, $disk_name, $request)
+    {
+        $cover = $request->file($name);
+        $resultall = "";
+        foreach ($cover as $coverone) {
+            $file_name = $coverone->getClientOriginalName();
+            $extension = $coverone->getClientOriginalExtension();
+
+            $destinationPath = $request->disk . '/' . date('Y') . '/' . date('m') . '/' . date('d');
+
+            $file_name = $destinationPath . '/' . $file_name;
+
+            if (Storage::disk($disk_name)->exists($file_name)) {
+                $now = \DateTime::createFromFormat('U.u', microtime(true));
+                $file_name = $destinationPath . '/' . $now->format("Hisu") . '.' . $extension;
+            }
+
+            Storage::disk($disk_name)->put($file_name, File::get($coverone));
+            $resultall .= '\'/media_doc' . $file_name . '\',';
+            $result = substr($resultall, 0, -1);
+        }
+
+        return $result;
+    }
+
 } 

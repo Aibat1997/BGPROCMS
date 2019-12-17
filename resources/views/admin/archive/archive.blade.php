@@ -44,12 +44,16 @@ td img{
                   <td>{{ $value->archive_id }}</td>
                   <td><img src="{{ $value->archive_image }}" alt=""></td>
                   @php
-                      $pice = str_replace("'", "", substr($value->archive_file, 0, -1));
+                      $pice = str_replace("'", "", $value->archive_file);
                       $links = explode(",", $pice);
                   @endphp
                   <td>
                     @foreach ($links as $item)
-                        <a href="{{ $item }}" target="_blank">{{ $item}}</a>,
+                      @if ($loop->last)
+                        <a href="{{ $item }}" target="_blank">{{ $item }}</a>
+                      @else
+                        <a href="{{ $item }}" target="_blank">{{ $item }}</a>,
+                      @endif
                     @endforeach
                   </td>
                   <td>
