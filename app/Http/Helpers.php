@@ -132,8 +132,8 @@ class Helpers {
 
             Storage::disk($disk_name)->put($file_name, File::get($coverone));
             $resultall .= '\'/media_doc' . $file_name . '\',';
-            $result = substr($resultall, 0, -1);
         }
+        $result = substr($resultall, 0, -1);
 
         return $result;
     }
