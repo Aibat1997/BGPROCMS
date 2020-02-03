@@ -138,4 +138,22 @@ class Helpers {
         return $result;
     }
 
+    public static function getCurrency(...$currency)
+    {
+        $url = "http://www.nationalbank.kz/rss/rates_all.xml";
+        $dataObj = simplexml_load_file($url);
+        $json = json_encode($dataObj);
+        $allcurrency = json_decode($json, true);
+        $result = array();
+        foreach ($allcurrency['channel']['item'] as $item){
+            foreach ($currency as $value) {
+                if ($item['title'] == $value) {
+                    array_push($result, $item);
+                }
+            }
+        }
+
+        return $result;
+    }
+
 } 
