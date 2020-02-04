@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Subscription;
-use App\Models\Rubric;
-use App\Models\User;
 
 class SubscriptionController extends Controller
 {
@@ -82,9 +80,8 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subscription $subscription)
     {
-        $subscription = Subscription::find($id);
         $subscription->delete(); 
     }
 }

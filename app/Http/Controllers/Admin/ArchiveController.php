@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
 use App\Http\Helpers;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 class ArchiveController extends Controller
 {
@@ -53,11 +51,11 @@ class ArchiveController extends Controller
             $resultall = Helpers::storeFile('archive_file', 'doc', $request);   
         }
 
-        $archive = new Archive();
-        $archive->archive_image = $result;
-        $archive->archive_file = $resultall;
-        $archive->is_show = $request->is_show;
-        $archive->save();
+        Archive::create([
+            'archive_image' => $result,
+            'archive_file' => $resultall,
+            'is_show' => $request->is_show
+        ]);
         
         return redirect("/admin/archive");        
     }
@@ -79,9 +77,8 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $archive = Archive::find($id);        
+    public function edit(Archive $archive)
+    {       
         return view('admin.archive.archive-edit', compact('archive'));
     }
 
@@ -92,14 +89,12 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Archive $archive)
     {
         $request->validate([
             'archive_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'archive_file' => 'max:20048',
         ]);
-        
-        $archive = Archive::find($id);
 
         if ($request->hasFile('archive_image')) {
             $result = Helpers::storeImg('archive_image', 'image', $request);
@@ -113,8 +108,7 @@ class ArchiveController extends Controller
             $resultall = $archive->archive_file;
         }
         
-        Archive::where('archive_id', $id)
-                ->update([
+        $archive->update([
                     'archive_image' => $result,
                     'archive_file' => $resultall,
                     'is_show' => $request->is_show
@@ -130,9 +124,8 @@ class ArchiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Archive $archive)
     {
-        $archive = Archive::find($id);
         $archive->delete(); 
     }
 }

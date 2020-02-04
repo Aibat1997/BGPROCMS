@@ -37,11 +37,11 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        $position = new Position();
-        $position->position_name_ru	= $request->position_name_ru;
-        $position->position_name_kz	= $request->position_name_kz;
-        $position->position_name_en	= $request->position_name_en;	
-        $position->save();
+        $position = Position::create([
+            'position_name_ru' => $request->position_name_ru,
+            'position_name_kz' => $request->position_name_kz,
+            'position_name_en' => $request->position_name_en
+        ]);
 
         return $position;
     }
@@ -86,9 +86,8 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Position $position)
     {
-        $position = Position::find($id);
         $position->delete();  
     }    
 }

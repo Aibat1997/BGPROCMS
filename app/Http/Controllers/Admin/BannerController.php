@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Http\Helpers;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 class BannerController extends Controller
 {
@@ -18,15 +16,15 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::where('is_show',1)
-                    ->leftJoin('rubrics','rubrics.rubric_id','=','banners.banner_rubric_id')
+        $banner = Banner::where('is_show', 1)
+                    ->leftJoin('rubrics', 'rubrics.rubric_id', '=', 'banners.banner_rubric_id')
                     ->get();
 
-        $banner_not = Banner::where('is_show',0)
-                    ->leftJoin('rubrics','rubrics.rubric_id','=','banners.banner_rubric_id')
-                    ->get();            
+        $banner_not = Banner::where('is_show', 0)
+                    ->leftJoin('rubrics', 'rubrics.rubric_id', '=', 'banners.banner_rubric_id')
+                    ->get();
                     
-        return view('admin.banner.banner', compact('banner','banner_not'));
+        return view('admin.banner.banner', compact('banner', 'banner_not'));
     }
 
     /**
@@ -52,20 +50,20 @@ class BannerController extends Controller
         ]);
 
         if ($request->hasFile('banner_image')) {
-            $result = Helpers::storeImg('banner_image', 'image', $request);            
+            $result = Helpers::storeImg('banner_image', 'image', $request);
         }
 
-        $banner = new Banner();
-        $banner->banner_image = $result;
-        $banner->banner_name = $request->banner_name;
-        $banner->banner_url = $request->banner_url;
-        $banner->banner_rubric_id = $request->banner_rubric_id;
-        $banner->is_show = $request->is_show;
-        $banner->save();
+        $banner = Banner::create([
+            'banner_image' => $result,
+            'banner_name' => $request->banner_name,
+            'banner_url' => $request->banner_url,
+            'banner_rubric_id' => $request->banner_rubric_id,
+            'is_show' => $request->is_show
+        ]);
 
         $list = array();
-        foreach ($request->news_position as $value) { 
-            array_push($list, $value);     
+        foreach ($request->news_position as $value) {
+            array_push($list, $value);
         }
 
         $banner->positions()->sync($list);
@@ -90,9 +88,8 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Banner $banner)
     {
-        $banner = Banner::find($id);
         return view('admin.banner.banner-edit', compact('banner'));
     }
 
@@ -103,22 +100,19 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Banner $banner)
     {
         $request->validate([
             'banner_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $banner = Banner::find($id);
-
         if ($request->hasFile('banner_image')) {
-            $result = Helpers::storeImg('banner_image', 'image', $request);  
-        }else {
+            $result = Helpers::storeImg('banner_image', 'image', $request);
+        } else {
             $result = $banner->banner_image;
         }
 
-        Banner::where('banner_id', $id)
-                ->update([
+        $banner->update([
                     'banner_image' => $result,
                     'banner_name' => $request->banner_name,
                     'banner_url' => $request->banner_url,
@@ -127,13 +121,13 @@ class BannerController extends Controller
                     ]);
 
         $list = array();
-        foreach ($request->news_position as $value) { 
-            array_push($list, $value);     
+        foreach ($request->news_position as $value) {
+            array_push($list, $value);
         }
 
         $banner->positions()->sync($list);
 
-        return redirect("/admin/banner"); 
+        return redirect("/admin/banner");
     }
 
     /**
@@ -142,9 +136,8 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Banner $banner)
     {
-        $banner = Banner::find($id);
-        $banner->delete(); 
+        $banner->delete();
     }
 }

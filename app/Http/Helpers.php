@@ -19,7 +19,7 @@ class Helpers {
         return $str;
     }
 
-    public static function getMonthName($number) 
+    public static function getMonthName(int $number, bool $withEnd) 
     {
         $lang = App::getLocale();
 
@@ -55,32 +55,17 @@ class Helpers {
                 12=> array('Желтоқсан', 'Желтоқсан')
             );
         }
-        else {
-            $monthAr = array(
-                1 => array('January', 'January'),
-                2 => array('February', 'February'),
-                3 => array('March', 'March'),
-                4 => array('April', 'April'),
-                5 => array('May', 'May'),
-                6 => array('June', 'June'),
-                7 => array('July', 'July'),
-                8 => array('August', 'August'),
-                9 => array('September', 'September'),
-                10=> array('October', 'October'),
-                11=> array('November', 'November'),
-                12=> array('December', 'December')
-            );
+        else if($lang == 'en'){
+            return date("F", mktime(0, 0, 0, $number, 1));
         }
-        if(!isset($monthAr[(int)$number][1])){
-            return '';
-        }
-        return $monthAr[(int)$number][1];
+        
+        return $withEnd == true ? $monthAr[$number][1] : $monthAr[$number][0];
     }
 
     public static function getDateFormat($date_param)
     {
         $date = Carbon::parse($date_param);
-        return $date->day .' '.Helpers::getMonthName($date->month).', '.$date->year;
+        return $date->day .' '.Helpers::getMonthName($date->month, true).', '.$date->year;
     }
 
     public function simpleDate($date)

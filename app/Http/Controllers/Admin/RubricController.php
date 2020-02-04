@@ -37,11 +37,11 @@ class RubricController extends Controller
      */
     public function store(Request $request)
     {
-        $rubric = new Rubric();
-        $rubric->rubric_name_ru	= $request->rubric_name_ru;
-        $rubric->rubric_name_kz	= $request->rubric_name_kz;
-        $rubric->rubric_name_en	= $request->rubric_name_en;	
-        $rubric->save();
+        $rubric = Rubric::create([
+            'rubric_name_ru' => $request->rubric_name_ru,
+            'rubric_name_kz' => $request->rubric_name_kz,
+            'rubric_name_en' => $request->rubric_name_en	
+        ]);
 
         return $rubric;
     }
@@ -86,9 +86,8 @@ class RubricController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Rubric $rubric)
     {
-        $rubric = Rubric::find($id);
         $rubric->delete(); 
     }
 }

@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\News;
-use App\Models\User;
 use App\Models\Subscription;
-use App\Models\NewsPosition;
 use App\Mail\NewsSubscription;
 use App\Http\Helpers;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
 class NewsController extends Controller
@@ -81,38 +77,38 @@ class NewsController extends Controller
             $lang .= $value.",";
         }
 
-        $news = new News();
-        //Ru
-        $news->news_name_ru = $request->news_name_ru;
-        $news->news_short_desc_ru = $request->news_short_desc_ru;
-        $news->news_desc_ru = $request->news_desc_ru;
-        $news->news_meta_description_ru = $request->news_meta_description_ru;
-        $news->news_meta_keywords_ru = $request->news_meta_keywords_ru;
-        $news->tag_ru = $request->tag_ru;
-        $news->news_image_ru = $result_ru;
-        //Kz
-        $news->news_name_kz = (!empty($request->news_name_kz)) ? $request->news_name_kz : $request->news_name_ru;
-        $news->news_short_desc_kz = (!empty($request->news_short_desc_kz)) ? $request->news_short_desc_kz : $request->news_short_desc_ru; 
-        $news->news_desc_kz = (!empty($request->news_desc_kz)) ? $request->news_desc_kz : $request->news_desc_ru;
-        $news->news_meta_description_kz = (!empty($request->news_meta_description_kz)) ? $request->news_meta_description_kz : $request->news_meta_description_ru;
-        $news->news_meta_keywords_kz = (!empty($request->news_meta_keywords_kz)) ? $request->news_meta_keywords_kz : $request->news_meta_keywords_ru;
-        $news->tag_kz = (!empty($request->tag_kz)) ? $request->tag_kz : $request->tag_ru;
-        $news->news_image_kz = $result_kz;
-        //En
-        $news->news_name_en = (!empty($request->news_name_en)) ? $request->news_name_en : $request->news_name_ru;
-        $news->news_short_desc_en = (!empty($request->news_short_desc_en)) ? $request->news_short_desc_en : $request->news_short_desc_ru; 
-        $news->news_desc_en = (!empty($request->news_desc_en)) ? $request->news_desc_en : $request->news_desc_ru;
-        $news->news_meta_description_en = (!empty($request->news_meta_description_en)) ? $request->news_meta_description_en : $request->news_meta_description_ru;
-        $news->news_meta_keywords_en = (!empty($request->news_meta_keywords_en)) ? $request->news_meta_keywords_en : $request->news_meta_keywords_ru;
-        $news->tag_en = (!empty($request->tag_en)) ? $request->tag_en : $request->tag_ru;
-        $news->news_image_en = $result_en;
-
-        $news->news_date = $request->news_date;
-        $news->news_lang = $lang;
-        $news->author_id = $request->author_id;
-        $news->news_rubric_id = $request->news_rubric_id;
-        $news->is_show = $request->is_show;
-        $news->save();
+        $news = News::create([
+            //Ru
+            'news_name_ru' => $request->news_name_ru,
+            'news_short_desc_ru' => $request->news_short_desc_ru,
+            'news_desc_ru' => $request->news_desc_ru,
+            'news_meta_description_ru' => $request->news_meta_description_ru,
+            'news_meta_keywords_ru' => $request->news_meta_keywords_ru,
+            'tag_ru' => $request->tag_ru,
+            'news_image_ru' => $result_ru,
+            //Kz
+            'news_name_kz' => (!empty($request->news_name_kz)) ? $request->news_name_kz : $request->news_name_ru,
+            'news_short_desc_kz' => (!empty($request->news_short_desc_kz)) ? $request->news_short_desc_kz : $request->news_short_desc_ru, 
+            'news_desc_kz' => (!empty($request->news_desc_kz)) ? $request->news_desc_kz : $request->news_desc_ru,
+            'news_meta_description_kz' => (!empty($request->news_meta_description_kz)) ? $request->news_meta_description_kz : $request->news_meta_description_ru,
+            'news_meta_keywords_kz' => (!empty($request->news_meta_keywords_kz)) ? $request->news_meta_keywords_kz : $request->news_meta_keywords_ru,
+            'tag_kz' => (!empty($request->tag_kz)) ? $request->tag_kz : $request->tag_ru,
+            'news_image_kz' => $result_kz,
+            //En
+            'news_name_en' => (!empty($request->news_name_en)) ? $request->news_name_en : $request->news_name_ru,
+            'news_short_desc_en' => (!empty($request->news_short_desc_en)) ? $request->news_short_desc_en : $request->news_short_desc_ru, 
+            'news_desc_en' => (!empty($request->news_desc_en)) ? $request->news_desc_en : $request->news_desc_ru,
+            'news_meta_description_en' => (!empty($request->news_meta_description_en)) ? $request->news_meta_description_en : $request->news_meta_description_ru,
+            'news_meta_keywords_en' => (!empty($request->news_meta_keywords_en)) ? $request->news_meta_keywords_en : $request->news_meta_keywords_ru,
+            'tag_en' => (!empty($request->tag_en)) ? $request->tag_en : $request->tag_ru,
+            'news_image_en' => $result_en,
+    
+            'news_date' => $request->news_date,
+            'news_lang' => $lang,
+            'author_id' => $request->author_id,
+            'news_rubric_id' => $request->news_rubric_id,
+            'is_show' => $request->is_show
+        ]);
 
         $list = array();
         foreach ($request->news_position as $value) { 
@@ -146,10 +142,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        $news = News::where('news_id', $id)
-        ->leftJoin('news_positions','news_positions.np_news_id','=','news.news_id')
+        $news->leftJoin('news_positions','news_positions.np_news_id','=','news.news_id')
         ->first();
         
         return view('admin.news.edit-news', compact('news'));
@@ -162,15 +157,13 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
         $request->validate([
             'news_image_ru' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'news_image_kz' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'news_image_en' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $news = News::find($id);
 
         if ($request->hasFile('news_image_ru')) {
             $result_ru = Helpers::storeImg('news_image_ru', 'image', $request);
@@ -188,8 +181,7 @@ class NewsController extends Controller
             $result_en = $news->news_image_en;
         }
 
-        News::where('news_id', $id)
-                ->update([
+        $news->update([
                     'news_name_ru' => $request->news_name_ru,
                     'news_name_kz' => $request->news_name_kz,
                     'news_name_en' => $request->news_name_en,
@@ -234,9 +226,8 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(News $news)
     {
-        $news = News::find($id);
         $news->delete(); 
     }
 }

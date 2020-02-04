@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Helpers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 class UsersController extends Controller
 {
@@ -53,18 +51,18 @@ class UsersController extends Controller
             $result = '/img/default-user.jpg';
         }
 
-        $users = new User();
-        $users->user_name_ru = $request->user_name_ru;
-        $users->user_name_kz = (!empty($request->user_name_kz)) ? $request->user_name_kz : null;
-        $users->user_name_en = (!empty($request->user_name_en)) ? $request->user_name_en : null; 
-        $users->email = $request->email;
-        $users->phone = $request->phone;
-        $users->date_of_birth = $request->date_of_birth;
-        $users->avatar = $result;
-        $users->user_role_id = $request->user_role_id;
-        $users->male = $request->male;
-        $users->password = Hash::make('12345');
-        $users->save();
+        User::create([
+            'user_name_ru' => $request->user_name_ru,
+            'user_name_kz' => (!empty($request->user_name_kz)) ? $request->user_name_kz : null,
+            'user_name_en' => (!empty($request->user_name_en)) ? $request->user_name_en : null, 
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'date_of_birth' => $request->date_of_birth,
+            'avatar' => $result,
+            'user_role_id' => $request->user_role_id,
+            'male' => $request->male,
+            'password' => Hash::make('12345')
+        ]);
 
         return redirect('/admin/users');
     }
@@ -109,9 +107,8 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
         $user->delete(); 
     }
 }

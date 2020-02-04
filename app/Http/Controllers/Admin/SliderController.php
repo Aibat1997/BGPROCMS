@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Http\Helpers;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
 {
@@ -67,18 +65,18 @@ class SliderController extends Controller
             $result_en = $result_ru;
         }
 
-        $slider = new Slider();
-        $slider->slider_text_ru = $request->slider_text_ru;
-        $slider->slider_text_kz = (!empty($request->slider_text_kz)) ? $request->slider_text_kz : $request->slider_text_ru;
-        $slider->slider_text_en = (!empty($request->slider_text_en)) ? $request->slider_text_en : $request->slider_text_ru;
-        $slider->slider_image_ru = $result_ru;
-        $slider->slider_image_kz = $result_kz;
-        $slider->slider_image_en = $result_en;
-        $slider->slider_url = $request->slider_url;
-        $slider->slider_position = $request->slider_position;
-        $slider->sort_num = $request->sort_num;
-        $slider->is_show = $request->is_show;
-        $slider->save();
+        Slider::create([
+            'slider_text_ru' => $request->slider_text_ru,
+            'slider_text_kz' => (!empty($request->slider_text_kz)) ? $request->slider_text_kz : $request->slider_text_ru,
+            'slider_text_en' => (!empty($request->slider_text_en)) ? $request->slider_text_en : $request->slider_text_ru,
+            'slider_image_ru' => $result_ru,
+            'slider_image_kz' => $result_kz,
+            'slider_image_en' => $result_en,
+            'slider_url' => $request->slider_url,
+            'slider_position' => $request->slider_position,
+            'sort_num' => $request->sort_num,
+            'is_show' => $request->is_show
+        ]);
 
         return redirect('/admin/slider');
     }
@@ -100,9 +98,8 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Slider $slider)
     {
-        $slider = Slider::find($id);
         return view('admin.slider.slider-edit', compact('slider'));
     }
 
@@ -113,15 +110,13 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Slider $slider)
     {
         $request->validate([
             'slider_image_ru' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'slider_image_kz' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'slider_image_en' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-
-        $slider = Slider::find($id);
 
         if ($request->hasFile('slider_image_ru')) {
             $result_ru = Helpers::storeImg('slider_image_ru', 'image', $request);
@@ -139,8 +134,7 @@ class SliderController extends Controller
             $result_en = $slider->slider_image_en;
         }
 
-        Slider::where('slider_id', $id)
-                ->update([
+        $slider->update([
                     'slider_text_ru' => $request->slider_text_ru,
                     'slider_text_kz' => $request->slider_text_kz,
                     'slider_text_en' => $request->slider_text_en,
@@ -162,9 +156,8 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Slider $slider)
     {
-        $slider = Slider::find($id);
         $slider->delete(); 
     }
 }

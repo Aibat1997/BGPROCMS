@@ -37,11 +37,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = new Role();
-        $role->role_name_ru = $request->role_name_ru;
-        $role->role_name_kz = $request->role_name_kz;
-        $role->role_name_en = $request->role_name_en;
-        $role->save();
+        $role = Role::create([
+            'role_name_ru' => $request->role_name_ru,
+            'role_name_kz' => $request->role_name_kz,
+            'role_name_en' => $request->role_name_en
+        ]);
 
         return $role;
     }
@@ -86,9 +86,8 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        $role = Role::find($id);
         $role->delete(); 
     }
 }
