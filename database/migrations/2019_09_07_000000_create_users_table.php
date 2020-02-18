@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->date('date_of_birth')->nullable();
             $table->string('avatar')->default('/img/default-user.jpg');
-            $table->unsignedBigInteger('user_role_id');
+            $table->unsignedBigInteger('user_role_id')->nullable();
             $table->boolean('male')->nullable();
+            $table->boolean('is_admin')->default(0);
             $table->boolean('is_ban')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -32,8 +33,7 @@ class CreateUsersTable extends Migration
             $table->date('deleted_at')->nullable();
 
             $table->foreign('user_role_id')
-                  ->references('role_id')->on('roles')
-                  ->onDelete('cascade');
+                  ->references('role_id')->on('roles');
         });
     }
 

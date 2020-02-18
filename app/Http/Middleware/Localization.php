@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App;
 use Closure;
+use Illuminate\Support\Facades\View;
 
 class Localization
 {
@@ -19,6 +20,7 @@ class Localization
         if (session()->has('lang')) {
             App::setLocale(session()->get('lang'));
         }
+        View::share('lang', App::getLocale());
         return $next($request);
     }
 }

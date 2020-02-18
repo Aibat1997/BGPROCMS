@@ -10,10 +10,11 @@
     <div class="row page-titles">
       <div class="col-md-8 col-8 align-self-center">
         <h3 class="text-themecolor m-b-0 m-t-0 d-inline-block">
-          <a>Роль Пользователей</a>
+          <a>Рубрика</a>
         </h3>
       </div>
     </div>
+
     <div class="row white-bg">
       <div class="col-md-12">
         <div class="box-body">
@@ -24,15 +25,15 @@
                   @csrf
                   <div class="form-group col-lg-3">
                     <label>Название(ru)</label>
-                    <input type="text" class="form-control" name="role_name_ru" />
+                    <input type="text" class="form-control" name="rubric_name_ru" />
                   </div>
                   <div class="form-group col-lg-3">
                     <label>Название(kz)</label>
-                    <input type="text" class="form-control" name="role_name_kz" />
+                    <input type="text" class="form-control" name="rubric_name_kz" />
                   </div>
                   <div class="form-group col-lg-3">
                     <label>Название(en)</label>
-                    <input type="text" class="form-control" name="role_name_en" />
+                    <input type="text" class="form-control" name="rubric_name_en" />
                   </div>
                   <div class="form-group col-lg-3 m-b-0">
                     <button class="btn btn-primary">Сохранить</button>
@@ -54,19 +55,19 @@
                 </tr>
               </thead>
 
-              <tbody id="role_table">
-                @foreach ($role as $key=>$value)
+              <tbody id="rubric_table">
+                @foreach ($rubric as $key=>$value)
                 <tr>
-                  <form action="" method="POST" id="updateForm{{ $value->role_id }}">
+                  <form action="" method="post" id="updateForm{{ $value->rubric_id }}">
                     @csrf
-                    <input type="hidden" name="role_id" value="{{ $value->role_id }}">
+                    <input type="hidden" name="rubric_id" value="{{ $value->rubric_id }}">
                     <td>{{ $key+1 }}</td>
-                    <td><input type="text" class="form-control" name="role_name_ru" value="{{ $value->role_name_ru }}" /></td>
-                    <td><input type="text" class="form-control" name="role_name_kz" value="{{ $value->role_name_kz }}" /></td>
-                    <td><input type="text" class="form-control" name="role_name_en" value="{{ $value->role_name_en }}" /></td>
+                    <td><input type="text" class="form-control" name="rubric_name_ru" value="{{ $value->rubric_name_ru }}" /></td>
+                    <td><input type="text" class="form-control" name="rubric_name_kz" value="{{ $value->rubric_name_kz }}" /></td>
+                    <td><input type="text" class="form-control" name="rubric_name_en" value="{{ $value->rubric_name_en }}" /></td>
                     <td><button class="btn btn-primary">Сохранить</button></td>
                     <td>
-                      <a href="javascript:void(0)" onclick="remove(this,'{{ $value->role_id }}','role')">
+                      <a href="javascript:void(0)" onclick="remove(this,'{{ $value->rubric_id }}','rubric')">
                         <i class="fas fa-trash"></i>
                       </a>
                     </td>
@@ -89,7 +90,7 @@
   $(document).ready(function () {
     $('form').on('submit', function (e) {
       e.preventDefault();
-      sendAjaxForm(this.id, '/admin/role');
+      sendAjaxForm(this.id, '/admin/rubric');
       return false;
     });
   });
@@ -102,18 +103,18 @@
       data: $("#" + ajax_form).serialize(),
       success: function (response) {
         var result = $.parseJSON(response);
-        $('#role_table').append(
+        $('#rubric_table').append(
           `<tr>
-            <form action="" method="post" id="updateForm`+ result.role_id + `">
+            <form action="" method="post" id="updateForm`+ result.rubric_id  + `">
              @csrf
-             <input type="hidden" name="role_id" value="`+ result.role_id + `">
-             <td>`+ result.role_id + `</td>
-             <td><input type="text" class="form-control" name="role_name_ru" value="`+ result.role_name_ru + `" /></td>
-             <td><input type="text" class="form-control" name="role_name_kz" value="`+ result.role_name_kz + `" /></td>
-             <td><input type="text" class="form-control" name="role_name_en" value="`+ result.role_name_en + `" /></td>
+             <input type="hidden" name="rubric_id " value="`+ result.rubric_id  + `">
+             <td>`+ result.rubric_id  + `</td>
+             <td><input type="text" class="form-control" name="rubric_name_ru" value="`+ result.rubric_name_ru + `" /></td>
+             <td><input type="text" class="form-control" name="rubric_name_kz" value="`+ result.rubric_name_kz + `" /></td>
+             <td><input type="text" class="form-control" name="rubric_name_en" value="`+ result.rubric_name_en + `" /></td>
              <td><button class="btn btn-primary">Сохранить</button></td>
              <td>
-               <a href="javascript:void(0)" onclick="remove(this,'`+ result.role_id + `','role')">
+               <a href="javascript:void(0)" onclick="remove(this,'`+ result.rubric_id  + `','rubric')">
                  <i class="fas fa-trash"></i>
                </a>
              </td>

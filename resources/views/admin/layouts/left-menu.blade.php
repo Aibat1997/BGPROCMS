@@ -36,9 +36,9 @@
                     <a class="waves-effect waves-dark" href="/admin/users" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Пользователи</span></a>
                 </li>
                 <li class="nav-item dropdown">
-                    @if (\Request::session()->get('lang') == 'ru')
+                    @if ($lang == 'ru')
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-ru"> </span>Русский</a>
-                    @elseif(\Request::session()->get('lang') == 'kz')
+                    @elseif($lang == 'kz')
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-kz"> </span>Казахсикй</a>
                     @else
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span>Английский</a>
