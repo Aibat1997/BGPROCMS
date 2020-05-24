@@ -52,9 +52,8 @@ class UsersController extends Controller
         }
 
         User::create([
-            'user_name_ru' => $request->user_name_ru,
-            'user_name_kz' => (!empty($request->user_name_kz)) ? $request->user_name_kz : null,
-            'user_name_en' => (!empty($request->user_name_en)) ? $request->user_name_en : null, 
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
             'date_of_birth' => $request->date_of_birth,

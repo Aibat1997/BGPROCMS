@@ -61,7 +61,7 @@
                   <form action="" method="post" id="updateForm{{ $value->rubric_id }}">
                     @csrf
                     <input type="hidden" name="rubric_id" value="{{ $value->rubric_id }}">
-                    <td>{{ $key+1 }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td><input type="text" class="form-control" name="rubric_name_ru" value="{{ $value->rubric_name_ru }}" /></td>
                     <td><input type="text" class="form-control" name="rubric_name_kz" value="{{ $value->rubric_name_kz }}" /></td>
                     <td><input type="text" class="form-control" name="rubric_name_en" value="{{ $value->rubric_name_en }}" /></td>
@@ -90,7 +90,8 @@
   $(document).ready(function () {
     $('form').on('submit', function (e) {
       e.preventDefault();
-      sendAjaxForm(this.id, '/admin/rubric');
+      let id = $(this).attr('id');
+      sendAjaxForm(id, '/admin/rubric');
       return false;
     });
   });

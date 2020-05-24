@@ -67,11 +67,6 @@
                                             <input type="text" class="form-control" name="news_name_ru" value="{{ !empty($news) ? $news->news_name_ru : old('news_name_ru') }}" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Краткое описание</label>
-                                            <textarea name="news_short_desc_ru"
-                                                class="form-control">{{ !empty($news) ? $news->news_short_desc_ru : old('news_short_desc_ru') }}</textarea>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Описание</label>
                                             <textarea id="editor" name="news_desc_ru">{{ !empty($news) ? $news->news_desc_ru : old('news_desc_ru') }}</textarea>
                                         </div>
@@ -97,11 +92,6 @@
                                             <input type="text" class="form-control" name="news_name_kz" value="{{ !empty($news) ? $news->news_name_kz : old('news_name_kz') }}"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Краткое описание</label>
-                                            <textarea name="news_short_desc_kz"
-                                                class="ckeditor form-control">{{ !empty($news) ? $news->news_short_desc_kz : old('news_short_desc_kz') }}</textarea>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Описание</label>
                                             <textarea id="editor1" name="news_desc_kz">{{ !empty($news) ? $news->news_desc_kz : old('news_desc_kz') }}</textarea>
                                         </div>
@@ -125,11 +115,6 @@
                                         <div class="form-group">
                                             <label>Название</label>
                                             <input type="text" class="form-control" name="news_name_en" value="{{ !empty($news) ? $news->news_name_en : old('news_name_en') }}"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Краткое описание</label>
-                                            <textarea name="news_short_desc_en"
-                                                class="ckeditor form-control">{{ !empty($news) ? $news->news_short_desc_en : old('news_short_desc_en') }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Описание</label>
@@ -204,56 +189,14 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="box box-primary" style="padding: 30px; text-align: center">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="img-ru-tab" data-toggle="tab"
-                                            href="#img-ru" role="tab" aria-controls="img-ru"
-                                            aria-selected="true">Рус</a>
-                                        <a class="nav-item nav-link" id="img-kz-tab" data-toggle="tab" href="#img-kz"
-                                            role="tab" aria-controls="img-kz" aria-selected="false">Каз</a>
-                                        <a class="nav-item nav-link" id="img-en-tab" data-toggle="tab" href="#img-en"
-                                            role="tab" aria-controls="img-en" aria-selected="false">Анг</a>
-                                    </div>
-                                </nav>
-                                <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="img-ru" role="tabpanel"
-                                        aria-labelledby="img-ru-tab">
-                                        <div style="padding: 20px; border: 1px solid #c2e2f0">
-                                            <img class="image-src" id="blah1" src="{{ !empty($news) ? $news->news_image_ru : old('news_image_ru') }}"
-                                                style="width: 100%; " />
-                                        </div>
-                                        <div style="background-color: #c2e2f0;height: 40px;margin: 0 auto;width: 2px;">
-                                        </div>
-                                        <label class="btn btn-primary label-img" for="imgInp1">
-                                            <input id="imgInp1" type="file" name="news_image_ru" class="d-none">
-                                            <i class="fa fa-plus"></i>
-                                        </label>
-                                    </div>
-                                    <div class="tab-pane fade" id="img-kz" role="tabpanel" aria-labelledby="img-kz-tab">
-                                        <div style="padding: 20px; border: 1px solid #c2e2f0">
-                                            <img class="image-src" id="blah2" src="{{ !empty($news) ? $news->news_image_kz : old('news_image_kz') }}"
-                                                style="width: 100%; " />
-                                        </div>
-                                        <div style="background-color: #c2e2f0;height: 40px;margin: 0 auto;width: 2px;">
-                                        </div>
-                                        <label class="btn btn-primary label-img" for="imgInp2">
-                                            <input id="imgInp2" type="file" name="news_image_kz" class="d-none">
-                                            <i class="fa fa-plus"></i>
-                                        </label>
-                                    </div>
-                                    <div class="tab-pane fade" id="img-en" role="tabpanel" aria-labelledby="img-en-tab">
-                                        <div style="padding: 20px; border: 1px solid #c2e2f0">
-                                            <img class="image-src" id="blah3" src="{{ !empty($news) ? $news->news_image_en : old('news_image_en') }}"
-                                                style="width: 100%; " />
-                                        </div>
-                                        <div style="background-color: #c2e2f0;height: 40px;margin: 0 auto;width: 2px;">
-                                        </div>
-                                        <label class="btn btn-primary label-img" for="imgInp3">
-                                            <input id="imgInp3" type="file" name="news_image_en" class="d-none">
-                                            <i class="fa fa-plus"></i>
-                                        </label>
-                                    </div>
+                                <div style="padding: 20px; border: 1px solid #c2e2f0">
+                                    <img class="image-src" id="blah" src="{{ (!empty($news)) ? $news->news_image : "/img/default-image.jpg" }}" style="width: 100%; " />
                                 </div>
+                                <div style="background-color: #c2e2f0;height: 40px;margin: 0 auto;width: 2px;"></div>
+                                <label class="btn btn-primary" for="imgInp">
+                                    <input id="imgInp" type="file" name="news_image" class="d-none">
+                                    <i class="fa fa-plus"></i>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -267,31 +210,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('js')
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                inpid = $(input).attr('id');
-                inpid = inpid[inpid.length - 1];
-                imgId = '#blah' + inpid;
-                $(imgId).attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imgInp1").change(function () {
-        readURL(this);
-    });
-    $("#imgInp2").change(function () {
-        readURL(this);
-    });
-    $("#imgInp3").change(function () {
-        readURL(this);
-    });
-</script>
 @endsection

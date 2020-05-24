@@ -53,10 +53,10 @@
                             <tbody>
                                 @foreach ($slider as $value)
                                 <tr>
-                                    <td>{{ $value->slider_id }}</td>
-                                    <td><img src="{{ $value->slider_image_ru }}" alt=""></td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td><img src="{{ $value->slider_image }}" alt=""></td>
                                     <td>{{ $value->slider_text_ru }}</td>
-                                    <td>{{ $value->position_name_ru }}</td>
+                                    <td>{{ is_null($value->position) ? '' : $value->position->position_name_ru }}</td>
                                     <td>
                                         <a href="javascript:void(0)"
                                             onclick="remove(this,'{{ $value->slider_id }}','slider')">
@@ -86,10 +86,10 @@
                             <tbody>
                                 @foreach ($slider_not as $value)
                                 <tr>
-                                    <td>{{ $value->slider_id }}</td>
-                                    <td><img src="{{ $value->slider_image_ru }}" alt=""></td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td><img src="{{ $value->slider_image }}" alt=""></td>
                                     <td>{{ $value->slider_text_ru }}</td>
-                                    <td>{{ $value->position_name_ru }}</td>
+                                    <td>{{ is_null($value->position) ? '' : $value->position->position_name_ru }}</td>
                                     <td>
                                         <a href="javascript:void(0)"
                                             onclick="remove(this,'{{ $value->slider_id }}','slider')">

@@ -44,11 +44,11 @@ class ArchiveController extends Controller
         ]);
 
         if ($request->hasFile('archive_image')) {
-            $result = Helpers::storeImg('archive_image', 'image', $request); 
+            $result = Helpers::storeImg('archive_image', 'image', $request);
         }
 
         if ($request->hasFile('archive_file')) {
-            $resultall = Helpers::storeFile('archive_file', 'doc', $request);   
+            $resultall = Helpers::storeFile('archive_file', 'doc', $request);
         }
 
         Archive::create([
@@ -56,8 +56,8 @@ class ArchiveController extends Controller
             'archive_file' => $resultall,
             'is_show' => $request->is_show
         ]);
-        
-        return redirect("/admin/archive");        
+
+        return redirect("/admin/archive");
     }
 
     /**
@@ -78,7 +78,7 @@ class ArchiveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Archive $archive)
-    {       
+    {
         return view('admin.archive.archive-edit', compact('archive'));
     }
 
@@ -92,30 +92,28 @@ class ArchiveController extends Controller
     public function update(Request $request, Archive $archive)
     {
         $request->validate([
-            'archive_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'archive_file' => 'max:20048',
         ]);
 
         if ($request->hasFile('archive_image')) {
             $result = Helpers::storeImg('archive_image', 'image', $request);
-        }else {
+        } else {
             $result = $archive->archive_image;
         }
 
         if ($request->hasFile('archive_file')) {
             $resultall = Helpers::storeFile('archive_file', 'doc', $request);
-        }else {
+        } else {
             $resultall = $archive->archive_file;
         }
-        
+
         $archive->update([
-                    'archive_image' => $result,
-                    'archive_file' => $resultall,
-                    'is_show' => $request->is_show
-                    ]);
+            'archive_image' => $result,
+            'archive_file' => $resultall,
+            'is_show' => $request->is_show
+        ]);
 
-        return redirect("/admin/archive"); 
-
+        return redirect("/admin/archive");
     }
 
     /**
@@ -126,6 +124,6 @@ class ArchiveController extends Controller
      */
     public function destroy(Archive $archive)
     {
-        $archive->delete(); 
+        $archive->delete();
     }
 }

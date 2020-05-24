@@ -41,7 +41,7 @@ td img{
               <tbody>
                 @foreach ($archive as $value)
                 <tr>
-                  <td>{{ $value->archive_id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td><img src="{{ $value->archive_image }}" alt=""></td>
                   @php
                       $pice = str_replace("'", "", $value->archive_file);

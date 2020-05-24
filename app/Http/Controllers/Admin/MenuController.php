@@ -18,7 +18,7 @@ class MenuController extends Controller
         $menu = Menu::where('is_show', 1)->get();
         $menu_not = Menu::where('is_show', 0)->get();
 
-        return view('admin.menu.menu', compact('menu','menu_not'));
+        return view('admin.menu.menu', compact('menu', 'menu_not'));
     }
 
     /**
@@ -45,11 +45,11 @@ class MenuController extends Controller
             'menu_name_en' => $request->menu_name_en,
             'menu_url' => $request->menu_url,
             'is_show_main' => $request->is_show_main,
-            'is_show' => $request->is_show,   
+            'is_show' => $request->is_show,
             'is_sub' => $request->is_sub,
             'sort_num' => $request->sort_num,
-            'main_menu_id' => ($request->is_sub == 1) ? $request->main_menu_id : null, 
-            'menu_page_id' => (is_numeric($request->menu_page_id)) ? $request->menu_page_id : null
+            'main_menu_id' => $request->main_menu_id,
+            'menu_page_id' => $request->menu_page_id
         ]);
 
         return redirect('/admin/menu');
@@ -74,7 +74,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        return view('admin.menu.menu-edit',compact('menu'));
+        return view('admin.menu.menu-edit', compact('menu'));
     }
 
     /**
@@ -87,17 +87,17 @@ class MenuController extends Controller
     public function update(Request $request, Menu $menu)
     {
         $menu->update([
-                    'menu_name_ru' => $request->menu_name_ru,
-                    'menu_name_kz' => $request->menu_name_kz,
-                    'menu_name_en' => $request->menu_name_en,
-                    'menu_url' => $request->menu_url,
-                    'is_show_main' => $request->is_show_main,
-                    'is_show' => $request->is_show,
-                    'is_sub' => $request->is_sub,
-                    'sort_num' => $request->sort_num,
-                    'main_menu_id' => ($request->is_sub == 1) ? $request->main_menu_id : null, 
-                    'menu_page_id' => (is_numeric($request->menu_page_id)) ? $request->menu_page_id : null
-                    ]);
+            'menu_name_ru' => $request->menu_name_ru,
+            'menu_name_kz' => $request->menu_name_kz,
+            'menu_name_en' => $request->menu_name_en,
+            'menu_url' => $request->menu_url,
+            'is_show_main' => $request->is_show_main,
+            'is_show' => $request->is_show,
+            'is_sub' => $request->is_sub,
+            'sort_num' => $request->sort_num,
+            'main_menu_id' => $request->main_menu_id,
+            'menu_page_id' => $request->menu_page_id
+        ]);
 
         return redirect("/admin/menu");
     }
@@ -110,6 +110,6 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        $menu->delete(); 
+        $menu->delete();
     }
 }

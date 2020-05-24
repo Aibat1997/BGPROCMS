@@ -68,9 +68,15 @@ class Helpers {
         return $date->day .' '.Helpers::getMonthName($date->month, true).', '.$date->year;
     }
 
-    public function simpleDate($date)
+    public static function simpleDate($date)
     {
         $simple_date = date('d.m.Y', strtotime($date));
+        return $simple_date;
+    }
+
+    public static function simpleDateWithTime($date)
+    {
+        $simple_date = date('d.m.Y H:i', strtotime($date));
         return $simple_date;
     }
 
@@ -139,6 +145,13 @@ class Helpers {
         }
 
         return $result;
+    }
+
+    public static function shortDescription($text, $max)
+    {
+        $text_no_tags = strip_tags($text);
+        $short_text = substr($text_no_tags, 0, $max) . '...';
+        return $short_text;
     }
 
 } 

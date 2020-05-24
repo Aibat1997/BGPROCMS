@@ -17,10 +17,9 @@ class PageController extends Controller
     public function index()
     {
         $page = Page::where('pages.is_show', 1)->get();
+        $page_not_show = Page::where('pages.is_show', 0)->get();
 
-        $page_not_show = Page::where('pages.is_show', 0)->get();    
-                            
-        return view('admin.pages.pages', compact('page','page_not_show'));
+        return view('admin.pages.pages', compact('page', 'page_not_show'));
     }
 
     /**
@@ -44,10 +43,10 @@ class PageController extends Controller
         Page::create([
             'page_name_ru' => $request->page_name_ru,
             'page_content_ru' => $request->page_content_ru,
-            'page_name_kz' => (!empty($request->page_name_kz)) ? $request->page_name_kz : $request->page_name_ru,
-            'page_content_kz' => (!empty($request->page_content_kz)) ? $request->page_content_kz : $request->page_content_ru,
-            'page_name_en' => (!empty($request->page_name_en)) ? $request->page_name_en : $request->page_name_ru,
-            'page_content_en' => (!empty($request->page_content_en)) ? $request->page_content_en : $request->page_content_ru,
+            'page_name_kz' => $request->page_name_kz,
+            'page_content_kz' => $request->page_content_kz,
+            'page_name_en' => $request->page_name_en,
+            'page_content_en' => $request->page_content_en,
             'is_show' => $request->is_show
         ]);
 
@@ -106,6 +105,6 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        $page->delete(); 
+        $page->delete();
     }
 }

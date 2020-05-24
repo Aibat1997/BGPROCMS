@@ -44,6 +44,7 @@ td img{
                   <th style="width: 30px">№</th>
                   <th>Фото</th>
                   <th>Название</th>
+                  <th>Краткое описание</th>
                   <th>Рубрика</th>
                   <th>Дата</th>
                   <th></th>
@@ -54,10 +55,11 @@ td img{
               <tbody>
                 @foreach ($news as $value)
                 <tr>
-                  <td>{{ $value->news_id }}</td>
-                  <td><img src="{{ $value->news_image_ru }}" alt=""></td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td><img src="{{ $value->news_image }}" alt=""></td>
                   <td>{{ $value->news_name_ru }}</td>
-                  <td>{{ $value->rubric_name_ru }}</td>
+                  <td>{{ App\Http\Helpers::shortDescription($value->news_desc_ru, 50) }}</td>
+                  <td>{{ $value->rubric->rubric_name_ru }}</td>
                   <td>{{ $value->updated_at }}</td>
                   <td>
                     <a href="javascript:void(0)" onclick="remove(this,'{{ $value->news_id }}','news')">
@@ -78,6 +80,7 @@ td img{
                   <th style="width: 30px">№</th>
                   <th>Фото</th>
                   <th>Название</th>
+                  <th>Краткое описание</th>
                   <th>Рубрика</th>
                   <th>Дата</th>
                   <th></th>
@@ -88,10 +91,11 @@ td img{
               <tbody>
                 @foreach ($news_not as $value)
                 <tr>
-                  <td>{{ $value->news_id }}</td>
-                  <td><img src="{{ $value->news_image_ru }}" alt=""></td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td><img src="{{ $value->news_image }}" alt=""></td>
                   <td>{{ $value->news_name_ru }}</td>
-                  <td>{{ $value->rubric_name_ru }}</td>
+                  <td>{{ App\Http\Helpers::shortDescription($value->news_desc_ru, 50) }}</td>
+                  <td>{{ $value->rubric->rubric_name_ru }}</td>
                   <td>{{ $value->updated_at }}</td>
                   <td>
                     <a href="javascript:void(0)" onclick="remove(this,'{{ $value->news_id }}','news')">

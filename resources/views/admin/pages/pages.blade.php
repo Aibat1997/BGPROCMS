@@ -45,7 +45,7 @@
               <tbody>
                 @foreach ($page as $value)
                 <tr>
-                  <td>{{ $value->page_id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $value->page_name_ru }}</td>
                   <td>
                     <a href="javascript:void(0)" onclick="remove(this,'{{ $value->page_id }}','pages')">
@@ -73,7 +73,7 @@
               <tbody>
                 @foreach ($page_not_show as $value)
                 <tr>
-                  <td>{{ $value->page_id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $value->page_name_ru }}</td>
                   <td>
                     <a href="javascript:void(0)" onclick="remove(this,'{{ $value->page_id }}','pages')">

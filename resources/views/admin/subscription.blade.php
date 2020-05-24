@@ -32,7 +32,7 @@
               <tbody>
                   @foreach ($subscription as $value)
                       <tr>
-                          <td>{{ $value->subscription_id }}</td>
+                          <td>{{ $loop->iteration }}</td>
                           <td>{{ $value->subscription_user_email }}</td>
                           <td>{{ $value->rubric_name_ru }}</td>
                           <td>{{ $value->subscription_status }}</td>

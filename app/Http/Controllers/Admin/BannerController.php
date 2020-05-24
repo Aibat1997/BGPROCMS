@@ -16,14 +16,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::where('is_show', 1)
-                    ->leftJoin('rubrics', 'rubrics.rubric_id', '=', 'banners.banner_rubric_id')
-                    ->get();
+        $banner = Banner::where('is_show', 1)->get();
+        $banner_not = Banner::where('is_show', 0)->get();
 
-        $banner_not = Banner::where('is_show', 0)
-                    ->leftJoin('rubrics', 'rubrics.rubric_id', '=', 'banners.banner_rubric_id')
-                    ->get();
-                    
         return view('admin.banner.banner', compact('banner', 'banner_not'));
     }
 
@@ -61,12 +56,7 @@ class BannerController extends Controller
             'is_show' => $request->is_show
         ]);
 
-        $list = array();
-        foreach ($request->news_position as $value) {
-            array_push($list, $value);
-        }
-
-        $banner->positions()->sync($list);
+        $banner->positions()->sync($request->news_position);
 
         return redirect('/admin/banner');
     }
@@ -102,10 +92,6 @@ class BannerController extends Controller
      */
     public function update(Request $request, Banner $banner)
     {
-        $request->validate([
-            'banner_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         if ($request->hasFile('banner_image')) {
             $result = Helpers::storeImg('banner_image', 'image', $request);
         } else {
@@ -113,19 +99,14 @@ class BannerController extends Controller
         }
 
         $banner->update([
-                    'banner_image' => $result,
-                    'banner_name' => $request->banner_name,
-                    'banner_url' => $request->banner_url,
-                    'banner_rubric_id' => $request->banner_rubric_id,
-                    'is_show' => $request->is_show
-                    ]);
+            'banner_image' => $result,
+            'banner_name' => $request->banner_name,
+            'banner_url' => $request->banner_url,
+            'banner_rubric_id' => $request->banner_rubric_id,
+            'is_show' => $request->is_show
+        ]);
 
-        $list = array();
-        foreach ($request->news_position as $value) {
-            array_push($list, $value);
-        }
-
-        $banner->positions()->sync($list);
+        $banner->positions()->sync($request->news_position);
 
         return redirect("/admin/banner");
     }

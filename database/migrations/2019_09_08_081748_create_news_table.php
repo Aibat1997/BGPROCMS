@@ -18,15 +18,10 @@ class CreateNewsTable extends Migration
             $table->string('news_name_ru')->nullable();
             $table->string('news_name_kz')->nullable();
             $table->string('news_name_en')->nullable();
-            $table->text('news_short_desc_ru')->nullable();
-            $table->text('news_short_desc_kz')->nullable();
-            $table->text('news_short_desc_en')->nullable();
             $table->text('news_desc_ru')->nullable();
             $table->text('news_desc_kz')->nullable();
             $table->text('news_desc_en')->nullable();
-            $table->string('news_image_ru')->nullable();
-            $table->string('news_image_kz')->nullable();
-            $table->string('news_image_en')->nullable();
+            $table->string('news_image')->nullable();
             $table->text('news_meta_description_ru')->nullable();
             $table->text('news_meta_description_kz')->nullable();
             $table->text('news_meta_description_en')->nullable();
@@ -36,9 +31,9 @@ class CreateNewsTable extends Migration
             $table->string('tag_ru')->nullable();
             $table->string('tag_kz')->nullable();
             $table->string('tag_en')->nullable();
-            $table->date('news_date');
+            $table->date('news_date')->nullable();
             $table->string('news_lang');
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('news_rubric_id');
             $table->boolean('is_show')->default(1);
             $table->timestamps();

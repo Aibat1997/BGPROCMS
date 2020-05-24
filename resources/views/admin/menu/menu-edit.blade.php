@@ -95,7 +95,7 @@
                                     <label class="form-check-label" for="is_sub_yes">
                                         Да
                                     </label>
-                                    <input type="radio" class="form-check-input" name="is_sub" value="0" id="is_sub_no" {{ (!empty($menu) && $menu->is_sub == 0) ? "checked" : "" }}>
+                                    <input type="radio" class="form-check-input" name="is_sub" value="0" id="is_sub_no" {{ (!empty($menu) && $menu->is_sub == 0) ? "checked" : "checked" }}>
                                     <label class="form-check-label" for="is_sub_no">
                                         Нет
                                     </label>

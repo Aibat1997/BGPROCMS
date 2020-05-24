@@ -78,7 +78,7 @@
                         <div class="card-block">
                             <div class="box box-primary" style="padding: 30px; text-align: center">
                                 <div style="padding: 20px; border: 1px solid #c2e2f0">
-                                    <img class="image-src" id="blah" src="{{ (!empty($banner)) ? $banner->banner_image : "" }}" style="width: 100%; " />
+                                    <img class="image-src" id="blah" src="{{ (!empty($banner)) ? $banner->banner_image : '/img/default-image.jpg' }}" style="width: 100%; " />
                                 </div>
                                 <div style="background-color: #c2e2f0;height: 40px;margin: 0 auto;width: 2px;"></div>
                                 <label class="btn btn-primary" for="imgInp">

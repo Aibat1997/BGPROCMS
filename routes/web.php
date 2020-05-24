@@ -1,6 +1,6 @@
 <?php
 
-Route::middleware(['admin', 'web'])->namespace('Admin')->prefix('admin')->group(function() {
+Route::middleware(['web'])->namespace('Admin')->prefix('admin')->group(function() {
     Route::resource('news', 'NewsController');
     Route::resource('rubric', 'RubricController');
     Route::resource('users', 'UsersController');

@@ -47,7 +47,7 @@
               <tbody>
                 @foreach ($menu as $value)
                 <tr>
-                  <td>{{ $value->menu_id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $value->menu_name_ru }}</td>
                   <td>{{ $value->menu_url }}</td>
                   <td>
@@ -77,7 +77,7 @@
               <tbody>
                 @foreach ($menu_not as $value)
                 <tr>
-                  <td>{{ $value->menu_id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $value->menu_name_ru }}</td>
                   <td>{{ $value->menu_url }}</td>
                   <td>

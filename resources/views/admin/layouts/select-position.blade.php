@@ -1,7 +1,7 @@
 @php
     $position = App\Models\Position::all();
 @endphp
-    <option selected>Выберите</option>
+    <option label="Выберите"></option>
 @foreach ($position as $item)
     @if(!empty($banner))
     <option value="{{ $item->position_id }}" {{ ($banner->banner_position_id == $item->position_id) ? "selected" : "" }}>{{ $item->position_name_ru }}</option>

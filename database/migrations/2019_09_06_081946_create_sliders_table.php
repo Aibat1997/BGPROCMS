@@ -19,11 +19,9 @@ class CreateSlidersTable extends Migration
             $table->text('slider_text_kz')->nullable();
             $table->text('slider_text_en')->nullable();
             $table->string('slider_url')->nullable();
-            $table->string('slider_image_ru')->nullable();
-            $table->string('slider_image_kz')->nullable();
-            $table->string('slider_image_en')->nullable();
-            $table->unsignedInteger('slider_position');
-            $table->unsignedInteger('sort_num');
+            $table->string('slider_image');
+            $table->unsignedInteger('slider_position')->nullable();
+            $table->unsignedInteger('sort_num')->nullable();
             $table->boolean('is_show')->default(1);
             $table->timestamps();
             $table->date('deleted_at')->nullable();

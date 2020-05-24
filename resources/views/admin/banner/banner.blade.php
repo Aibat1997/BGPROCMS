@@ -53,10 +53,10 @@
                             <tbody>
                                 @foreach ($banner as $value)
                                 <tr>
-                                    <td>{{ $value->banner_id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td><img src="{{ $value->banner_image }}" alt=""></td>
                                     <td>{{ $value->banner_name }}</td>
-                                    <td>{{ $value->rubric_name_ru }}</td>
+                                    <td>{{ $value->rubric->rubric_name_ru }}</td>
                                     <td>
                                         <a href="javascript:void(0)"
                                             onclick="remove(this,'{{ $value->banner_id }}','banner')">
@@ -86,10 +86,10 @@
                             <tbody>
                                 @foreach ($banner_not as $value)
                                 <tr>
-                                    <td>{{ $value->banner_id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td><img src="{{ $value->banner_image }}" alt=""></td>
                                     <td>{{ $value->banner_name }}</td>
-                                    <td>{{ $value->rubric_name_ru }}</td>
+                                    <td>{{ $value->rubric->rubric_name_ru }}</td>
                                     <td>
                                         <a href="javascript:void(0)"
                                             onclick="remove(this,'{{ $value->banner_id }}','banner')">

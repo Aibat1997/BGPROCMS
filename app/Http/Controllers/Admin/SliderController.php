@@ -16,14 +16,9 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $slider = Slider::where('is_show',1)
-                    ->leftJoin('positions','positions.position_id','=','sliders.slider_id')
-                    ->get();
+        $slider = Slider::where('is_show', 1)->get();
+        $slider_not = Slider::where('is_show', 0)->get();
 
-        $slider_not = Slider::where('is_show',0)
-                    ->leftJoin('positions','positions.position_id','=','sliders.slider_id')
-                    ->get();            
-                    
         return view('admin.slider.slider', compact('slider', 'slider_not'));
     }
 
@@ -46,32 +41,18 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'slider_image_ru' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'slider_image_kz' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'slider_image_en' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'slider_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('slider_image_ru')) {
-            $result_ru = Helpers::storeImg('slider_image_ru', 'image', $request); 
-        }
-        if ($request->hasFile('slider_image_kz')) {
-            $result_kz = Helpers::storeImg('slider_image_kz', 'image', $request);
-        }else {
-            $result_kz = $result_ru;
-        }
-        if ($request->hasFile('slider_image_en')) {
-            $result_en = Helpers::storeImg('slider_image_en', 'image', $request);
-        }else {
-            $result_en = $result_ru;
+        if ($request->hasFile('slider_image')) {
+            $result = Helpers::storeImg('slider_image', 'image', $request);
         }
 
         Slider::create([
             'slider_text_ru' => $request->slider_text_ru,
-            'slider_text_kz' => (!empty($request->slider_text_kz)) ? $request->slider_text_kz : $request->slider_text_ru,
-            'slider_text_en' => (!empty($request->slider_text_en)) ? $request->slider_text_en : $request->slider_text_ru,
-            'slider_image_ru' => $result_ru,
-            'slider_image_kz' => $result_kz,
-            'slider_image_en' => $result_en,
+            'slider_text_kz' => $request->slider_text_kz,
+            'slider_text_en' => $request->slider_text_en,
+            'slider_image' => $result,
             'slider_url' => $request->slider_url,
             'slider_position' => $request->slider_position,
             'sort_num' => $request->sort_num,
@@ -112,40 +93,22 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider)
     {
-        $request->validate([
-            'slider_image_ru' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'slider_image_kz' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'slider_image_en' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
-        if ($request->hasFile('slider_image_ru')) {
-            $result_ru = Helpers::storeImg('slider_image_ru', 'image', $request);
-        }else {
-            $result_ru = $slider->slider_image_ru;
-        }
-        if ($request->hasFile('slider_image_kz')) {
-            $result_kz = Helpers::storeImg('slider_image_kz', 'image', $request);
-        }else {
-            $result_kz = $slider->slider_image_kz;
-        }
-        if ($request->hasFile('slider_image_en')) {
-            $result_en = Helpers::storeImg('slider_image_en', 'image', $request);
-        }else {
-            $result_en = $slider->slider_image_en;
+        if ($request->hasFile('slider_image')) {
+            $result = Helpers::storeImg('slider_image', 'image', $request);
+        } else {
+            $result = $slider->slider_image;
         }
 
         $slider->update([
-                    'slider_text_ru' => $request->slider_text_ru,
-                    'slider_text_kz' => $request->slider_text_kz,
-                    'slider_text_en' => $request->slider_text_en,
-                    'slider_image_ru' => $result_ru,
-                    'slider_image_kz' => $result_kz,
-                    'slider_image_en' => $result_en,
-                    'slider_url' => $request->slider_url,
-                    'slider_position' => $request->slider_position,
-                    'sort_num' => $request->sort_num,
-                    'is_show' => $request->is_show,
-                ]);
+            'slider_text_ru' => $request->slider_text_ru,
+            'slider_text_kz' => $request->slider_text_kz,
+            'slider_text_en' => $request->slider_text_en,
+            'slider_image' => $result,
+            'slider_url' => $request->slider_url,
+            'slider_position' => $request->slider_position,
+            'sort_num' => $request->sort_num,
+            'is_show' => $request->is_show,
+        ]);
 
         return redirect("/admin/slider");
     }
@@ -158,6 +121,6 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        $slider->delete(); 
+        $slider->delete();
     }
 }
